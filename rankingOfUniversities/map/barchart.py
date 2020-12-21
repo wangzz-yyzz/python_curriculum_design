@@ -18,5 +18,5 @@ def draw(m: bool):
     plt.rcParams['axes.unicode_minus'] = False
     fig = sns.barplot(data=data, x="省市", y="上榜数量").get_figure()
     plt.show()
-    fig.savefig("前10名.png")
+    fig.savefig(output_name)
     print("bar chart Done")
