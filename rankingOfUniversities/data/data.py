@@ -7,6 +7,7 @@ headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36
                          'Chrome/67.0.3396.99 Safari/537.36'}
 base_url = ["https://www.shanghairanking.cn/rankings/bcur/202011", "https://www.shanghairanking.cn/rankings/bcur/202021"]
 
+# css选择器
 css_sel = {"排名": "#content-box > div.rk-table-box > table > tbody > tr > td:nth-child(1)",
            "学校名称": "#content-box > div.rk-table-box > table > tbody > tr > td.align-left > a",
            "省市": "#content-box > div.rk-table-box > table > tbody > tr > td:nth-child(3)",
@@ -30,16 +31,19 @@ def getData(m: bool):
         if key != "学校名称":
             ans = res.select(css_sel[key])
             for i in range(len(ans)):
-                # 定位到文字内容
+                # 定位到文字内容，先替换后正则提取
                 ans[i] = str(ans[i]).replace(" ", "").replace("<!---->", "").replace("\n", "")
                 ans[i] = re.findall(r'<td.*?>(.*?)</td>', ans[i])
                 ans[i] = ans[i][0]
         else:
+            # 无需正则提取
             ans = res.select(css_sel[key])
             for i in range(len(ans)):
                 ans[i] = ans[i].string
+        # 将字段保存至字典
         data[key] = ans
 
+    # 保存数据
     data = pd.DataFrame(data)
     print("Done")
     data.to_csv(file_name)
