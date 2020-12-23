@@ -7,6 +7,7 @@ import sys
 def run():
     print("Welcome to Student Manager System!")
     while True:
+        # 主循环
         printMenu()
         c = int(input("Enter the service: "))
         if c == 1:
@@ -35,6 +36,7 @@ def run():
 
 
 def retrieve():
+    """打印数据"""
     data = []
     print("1. All")
     print("2. select by name")
@@ -67,6 +69,7 @@ def retrieve():
 
 
 def create():
+    """创建新的学生数据"""
     student = Student()
     student.student_id = input("ID: ")
     student.name = input("Name: ")
@@ -80,6 +83,7 @@ def create():
 
 
 def delete():
+    """根据ID或姓名删除学生数据"""
     print("1. remove by Id")
     print("2. remove by Name")
     c = int(input("Enter the choice: "))
@@ -100,6 +104,7 @@ def delete():
 
 
 def update():
+    """查找并更新学生信息"""
     student_id = input("Enter the Id of student you want to update: ")
     data = dao.selectById(student_id)
     if not data:
@@ -112,6 +117,7 @@ def update():
 
 
 def sortData():
+    """对数据按从大到小的顺序排序"""
     data = readData()
     data.sort(reverse=True, key=Student.get_score)
     writeData(data)
@@ -120,6 +126,8 @@ def sortData():
 
 
 def showTenth():
+    """展示分数前前10的学生信息"""
+    sortData()
     data = readData()
     if len(data) > 10:
         data = dao[:10]
@@ -127,6 +135,7 @@ def showTenth():
 
 
 def getAverage():
+    """获取某一类学生总分的平均值"""
     print("1. Class")
     print("2. Sex")
     c = int(input("Average in ?: "))

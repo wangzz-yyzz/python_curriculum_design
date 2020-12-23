@@ -9,4 +9,5 @@ class Student(object):
         self.score = ""
 
     def get_score(self) -> float:
+        """用于排序"""
         return float(self.score)

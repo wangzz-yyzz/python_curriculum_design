@@ -17,6 +17,6 @@ if __name__ == '__main__':
     province.getProvinceData(m=False)
     my_map.draw(m=False)
 
-    # 画图
+    # 绘制前10名的柱状图
     chart.draw(m=True)
     chart.draw(m=False)

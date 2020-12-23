@@ -2,6 +2,7 @@ import pandas as pd
 
 
 def getProvinceData(m: bool):
+    """获取各省市上榜学校个数"""
     if m:
         output_name = "province.csv"
         file_name = "data.csv"

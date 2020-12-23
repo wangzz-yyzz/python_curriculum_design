@@ -7,12 +7,14 @@ file_name = "data.txt"
 
 
 def readData() -> list:
+    """将文件中的数据读取为列表"""
     with open(path + os.sep + file_name, "r") as f:
         data = json.load(f, object_hook=encode)
     return data
 
 
 def decode(obj: Student):
+    """序列化写入"""
     return {
         "student_id": obj.student_id,
         "name": obj.name,
@@ -25,6 +27,7 @@ def decode(obj: Student):
 
 
 def encode(dic):
+    """序列化读取"""
     student = Student()
     student.student_id = dic["student_id"]
     student.name = dic["name"]
@@ -37,11 +40,13 @@ def encode(dic):
 
 
 def writeData(data: list):
+    """将数据写入文件"""
     with open(path + os.sep + file_name, "w") as f:
         f.writelines(json.dumps(data, default=decode))
 
 
 def initData():
+    """初始化数据，会丢失现有数据"""
     data: list[Student] = []
     student_id = ["1001", "1002", "1003"]
     name = ["zhangSan", "liSi", "wangWu"]

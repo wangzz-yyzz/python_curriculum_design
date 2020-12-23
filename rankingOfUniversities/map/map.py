@@ -6,6 +6,7 @@ from folium.plugins import HeatMap
 
 
 def get_pos(address):
+    """请求数据"""
     # 高德地图API
     url = "https://restapi.amap.com/v3/geocode/geo?key=" + "1d302a8b67fc817d0b8a89052b205f37" + "&address=" + address
     try:
@@ -16,12 +17,14 @@ def get_pos(address):
 
 
 def parse_result(result):
+    """提取得到的经纬度数据"""
     lat = result['geocodes'][0]["location"].split(",")[1]
     lng = result['geocodes'][0]["location"].split(",")[0]
     return [lat, lng]
 
 
 def draw(m: bool):
+    """绘制热力分布地图"""
     if m:
         output_name = "省市分布地图.html"
         file_name = "province.csv"
