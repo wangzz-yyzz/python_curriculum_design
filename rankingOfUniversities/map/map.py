@@ -18,19 +18,29 @@ def get_pos(address):
 
 def parse_result(result):
     """提取得到的经纬度数据"""
-    lat = result['geocodes'][0]["location"].split(",")[1]
-    lng = result['geocodes'][0]["location"].split(",")[0]
+    try:
+        lat = result['geocodes'][0]["location"].split(",")[1]
+        lng = result['geocodes'][0]["location"].split(",")[0]
+    except:
+        lat = 0
+        lng = 0
     return [lat, lng]
 
 
 def draw(m: bool):
     """绘制热力分布地图"""
+    # if m:
+    #     output_name = "省市分布地图.html"
+    #     file_name = "province.csv"
+    # else:
+    #     output_name = "省市分布地图-医药科.html"
+    #     file_name = "province_medicine.csv"
     if m:
-        output_name = "省市分布地图.html"
-        file_name = "province.csv"
+        output_name = "省市分布地图-n.html"
+        file_name = "data.csv"
     else:
-        output_name = "省市分布地图-医药科.html"
-        file_name = "province_medicine.csv"
+        output_name = "省市分布地图-医药科-n.html"
+        file_name = "data_medicine.csv"
     data = pd.read_csv(file_name)
     print(data)
     lat = []
@@ -39,11 +49,11 @@ def draw(m: bool):
 
     # 获取经纬度
     for index, row in data.iterrows():
-        res = parse_result(get_pos(row["省市"]))
-        print(res)
+        res = parse_result(get_pos(row["学校名称"]))
+        print(res, index)
         lat.append(res[0])
         lng.append(res[1])
-        num.append(row["上榜数量"])
+        num.append(1)
 
     # 绘制地图
     lat = np.array(lat, dtype=float)
