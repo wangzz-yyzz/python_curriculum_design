@@ -5,6 +5,7 @@ from sklearn.datasets import load_boston
 from sklearn.linear_model import LinearRegression
 from sklearn.metrics import mean_squared_error
 from sklearn.model_selection import train_test_split
+import numpy as np
 
 dataset = load_boston()
 x_data = dataset.data  # 导入所有特征变量
@@ -46,10 +47,9 @@ print('Coefficients:', lr.coef_)
 # 查看回归方程截距
 print('intercept', lr.intercept_)
 
-
 plt.figure(figsize=(30, 10))
 plt.plot(range(len(y_test)), y_test, color='red', label="real")
-plt.plot(range(len(y_test)), lr.predict(X_test), color='blue', label="predict")
+plt.plot(range(len(y_test)), lr_y_predict, color='blue', label="predict")
 plt.xlabel('X')
 plt.ylabel('Price')
 plt.legend(loc='lower left')
@@ -57,8 +57,17 @@ plt.savefig("predict.png")
 
 plt.figure(figsize=(30, 10))
 plt.scatter(range(len(y_test)), y_test, color='red', label="real")
-plt.plot(range(len(y_test)), lr.predict(X_test), color='blue', label="predict")
+plt.plot(range(len(y_test)), lr_y_predict, color='blue', label="predict")
 plt.xlabel('X')
 plt.ylabel('Price')
 plt.legend(loc='lower left')
 plt.savefig("predict-scatter.png")
+
+time = np.arange(0, 50).reshape(50, 1)
+plt.figure(figsize=(20, 10))
+plt.plot(time, y_test[0: 50], color='red', label="real")
+plt.plot(time, lr.predict(X_test)[0: 50], color='blue', label="predict")
+plt.xlabel('X')
+plt.ylabel('Price')
+plt.legend(loc='lower left')
+plt.savefig("predict-small.png")
