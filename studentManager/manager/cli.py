@@ -1,5 +1,6 @@
 from ..manager.data import *
 from ..util.util import *
+from ..util.sort import *
 import studentManager.manager.dao as dao
 import sys
 
@@ -119,7 +120,8 @@ def update():
 def sortData():
     """对数据按从大到小的顺序排序"""
     data = readData()
-    data.sort(reverse=True, key=Student.get_score)
+    quick_sort(data, 0, len(data) - 1)
+    # data.sort(reverse=True, key=Student.get_score)
     writeData(data)
     print("Done")
     display(readData())
