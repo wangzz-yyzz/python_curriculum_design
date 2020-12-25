@@ -12,6 +12,7 @@ y_data = dataset.target  # 导入目标值（房价）
 name_data = dataset.feature_names  # 导入特征名
 
 for i in range(13):
+    plt.figure()
     plt.scatter(x_data[:, i], y_data, s=20)
     plt.title(name_data[i])
     plt.savefig("boston_param_" + name_data[i])
