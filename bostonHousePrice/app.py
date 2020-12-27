@@ -21,6 +21,13 @@ for i in range(13):
 x_data = dataset.data
 y_data = dataset.target
 
+i_ = []
+for i in range(len(y_data)):
+    if y_data[i] >= 50:
+        i_.append(i)  # 存储房价等于50 的异常值下标
+x_data = delete(x_data, i_, axis=0)  # 删除房价异常值数据
+y_data = delete(y_data, i_, axis=0)  # 删除异常值
+
 # 随机选择25%的数据构建测试样本，剩余作为训练样本
 X_train, X_test, y_train, y_test = train_test_split(x_data, y_data, random_state=0, test_size=0.25)
 

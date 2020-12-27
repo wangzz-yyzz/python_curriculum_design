@@ -10,7 +10,10 @@ def run():
     while True:
         # 主循环
         printMenu()
-        c = int(input("Enter the service: "))
+        try:
+            c = int(input("Enter the service: "))
+        except ValueError:
+            c = -1
         if c == 1:
             display(readData())
         elif c == 2:
